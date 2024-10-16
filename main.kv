@@ -1,0 +1,56 @@
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
+ScreenManager:
+    transition: SlideTransition()
+    MainMenu:
+    GameScreen:
+
+<MainMenu>:
+    name: 'main_menu'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+
+        MDLabel:
+            text: 'Python Pyetësori: Testoni njohuritë tuaja në Python!'
+            halign: 'center'
+            font_style: 'H4'
+
+        MDTextField:
+            id: name_input
+            hint_text: 'Shkruani emrin tuaj'
+
+        MDRaisedButton:
+            text: 'Filloni Lojën'
+            pos_hint: {'center_x': 0.5}
+            on_release:
+                app.root.current = 'game_screen'
+                app.root.get_screen('game_screen').start_game(name_input.text)
+
+<GameScreen>:
+    name: 'game_screen'
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 20
+        spacing: 20
+
+        MDLabel:
+            id: question_label
+            text: ''
+            halign: 'center'
+            font_style: 'H5'
+
+        ScrollView:
+            id: answer_box
+            BoxLayout:
+                id: answer_box
+                orientation: 'vertical'
+                size_hint_y: None
+                height: self.minimum_height
+
+        MDRaisedButton:
+            text: 'Kontrollo Përgjigjen'
+            pos_hint: {'center_x': 0.5}
+            on_release:
+                root.check_selected_answer()
